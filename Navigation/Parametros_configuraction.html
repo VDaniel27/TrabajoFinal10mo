@@ -1,0 +1,148 @@
+
+<style>
+   .code-container {
+  
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #000;
+      font-family: 'Courier New', Courier, monospace;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+    /* Estilos para las palabras clave HTML */
+    .html-tag, .html-attr, .html-value {
+      color: #0a93a6;
+    }
+    /* Estilos para las palabras clave JavaScript */
+    .js-keyword, .js-string, .js-comment {
+      color: #00ff00;
+    }
+</style>
+
+<div class="container">
+<div>
+    <br>
+    <h1 class="text-center">Parametros de configuracion:</h1>
+</div>
+
+<h4>1. Configuración del service worker</h4>
+
+<p class="text-center">Para el uso del service worker es necesario agregar esto en nuestro archivo index.html en la parte
+    inferior, previo a la etiqueta body.
+</p>
+
+<div class="code-container">
+    <span class="js-keyword">if</span> (<span class="js-keyword">'serviceWorker'</span> <span class="js-keyword">in</span> <span class="js-keyword">navigator</span>) {<br>
+    &nbsp;&nbsp;<span class="js-keyword">window</span>.<span class="js-keyword">addEventListener</span>(<span class="js-string">'load'</span>, () <span class="js-keyword">=&gt;</span> {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="js-keyword">navigator</span>.<span class="js-keyword">serviceWorker</span>.<span class="js-keyword">register</span>(<span class="js-string">'/sw.js'</span>)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.then(<span class="js-keyword">registration</span> <span class="js-keyword">=&gt;</span> {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="js-keyword">console</span>.<span class="js-keyword">log</span>(<span class="js-string">'Service Worker registrado con éxito:'</span>, <span class="js-keyword">registration</span>);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.catch(<span class="js-keyword">error</span> <span class="js-keyword">=&gt;</span> {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="js-keyword">console</span>.<span class="js-keyword">log</span>(<span class="js-string">'Error al registrar el Service Worker:'</span>, <span class="js-keyword">error</span>);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+    &nbsp;&nbsp;}<br>
+    } <span class="js-keyword">else</span> {<br>
+    &nbsp;&nbsp;<span class="js-keyword">console</span>.<span class="js-keyword">log</span>(<span class="js-string">'Service Worker no es soportado en este navegador.'</span>);<br>
+    }
+  </div>
+
+  <p class="text-center">En algunos casos si nostros estamos trabajando en un entorno local no tendremos aún configurado el Https 
+    por lo que el service worker puede no funcionar, sin embargo para estár completamente seguro que funciona, 
+    se deberá agregar el servicio usando el protocolo HTTPS por medio de un navegador que soporte el SW.
+</p>
+<p class="text-center">A continuación, se muestra un ejemplo de lo que sucede cuando no se configura el protocolo HTTPS.
+</p>
+<div class="imagen">
+  <img src="Imagenes/sw.JPG">
+</div>
+<hr>
+<h4>2. Configuración del entorno de trabajo XAMP</h4>
+<p>Crear nuestra carpeta con un archivo con extención .html en la carpeta XAMPP</p>
+<div class="imagen">
+  <img src="Imagenes/xa.JPG">
+</div>
+
+<br>
+
+<p>Escribir un "hola" para probar nuestro archivo</p>
+<div class="imagen">
+  <img src="Imagenes/hola.JPG">
+</div>
+
+<br>
+
+<p>Ejecutar nuestro servidor local para la prueba:</p>
+<div class="imagen">
+  <img src="Imagenes/xamp.JPG">
+</div>
+
+<br>
+
+<p>Cargar nuestro hola en el servidor local</p>
+<div class="imagen">
+  <img src="Imagenes/holapage.JPG">
+</div>
+<br>
+
+<p>Podemos empezar a trabajar en nuestro proyecto ya configurado correctamente</p>
+
+<hr>
+<h4>3. Configuración del archivo manifest</h4>
+<br>
+
+<p>Creamos en la raíz de nuestro proyecto un archivo llamado Manifest.json</p>
+<div class="imagen">
+  <img src="Imagenes/manifest.JPG">
+</div>
+<br>
+<p>EL manifest puede tener múltples objetos, para este caso solo estaremos empleado 4 fundamentales</p>
+<div class="imagen">
+  <img src="Imagenes/manifestjson.JPG">
+</div>
+<br>
+
+<p>Sicronizamos nuestro manifest con la págiona que servirá de puente para las demás</p>
+<div class="imagen">
+  <img src="Imagenes/manifestheader.JPG">
+</div>
+<br>
+<h4>4. Configuración para manejo de caché</h4>
+<p>Para el uso del cache tenemos que tener ya previamente configurado el Service Worker, el código empleado para la 
+  configuración del uso del cache es el siguiente:
+</p>
+<div class="code-container">
+  <span class="js-keyword">const</span> CACHE_NAME = <span class="js-string">'mi-cache-v1'</span>;<br>
+  <span class="js-keyword">const</span> urlsToCache = [<br>
+    &nbsp;&nbsp;<span class="js-string">'/'</span>,<br>
+    &nbsp;&nbsp;<span class="js-string">'/css/styles.css'</span>,<br>
+    &nbsp;&nbsp;<span class="js-string">'/js/scripts.js'</span>,<br>
+    &nbsp;&nbsp;<span class="js-string">'/imagenes/logo.png'</span>,<br>
+    &nbsp;&nbsp;<span class="js-comment">// Agrega aquí todos los recursos que deseas almacenar en caché</span><br>
+  ];<br><br>
+  
+  <span class="js-keyword">self</span>.<span class="js-keyword">addEventListener</span>(<span class="js-string">'install'</span>, event <span class="js-keyword">=&gt;</span> {<br>
+    &nbsp;&nbsp;event.<span class="js-keyword">waitUntil</span>(<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="js-keyword">caches</span>.<span class="js-keyword">open</span>(CACHE_NAME)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.then(cache <span class="js-keyword">=&gt;</span> {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="js-keyword">return</span> cache.<span class="js-keyword">addAll</span>(urlsToCache);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+    &nbsp;&nbsp;);<br>
+  });<br><br>
+  
+  <span class="js-keyword">self</span>.<span class="js-keyword">addEventListener</span>(<span class="js-string">'fetch'</span>, event <span class="js-keyword">=&gt;</span> {<br>
+    &nbsp;&nbsp;event.<span class="js-keyword">respondWith</span>(<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="js-keyword">caches</span>.<span class="js-keyword">match</span>(event.<span class="js-keyword">request</span>)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.then(response <span class="js-keyword">=&gt;</span> {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="js-comment">// Devuelve el recurso desde la caché si está disponible, de lo contrario, realiza la solicitud a la red</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="js-keyword">return</span> response || <span class="js-keyword">fetch</span>(event.<span class="js-keyword">request</span>);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+    &nbsp;&nbsp;);<br>
+  });
+</div>
+
+<br>
+<p>Cabe destacar que éste código funciona con service worker, además de que, se están cargando
+  a la cache algunos directorios de nuestra carpeta raíz con el fin de hacer que carge más rápido nuestra página.
+</p>
+</div>

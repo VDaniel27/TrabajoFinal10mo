@@ -1,0 +1,12 @@
+.imagen {
+    text-align: center;
+
+  }
+
+  .imagen img {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }

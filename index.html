@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <title>Producto 2</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link rel="stylesheet" href="Styles/Estilos.css">
+        <link rel="stylesheet" href="Styles/imagenes.css">
+        <link rel="manifest" href="manifest.json">
+
+    </head>
+    <body>
+        <header>
+            <nav>
+                <nav class="navbar">
+                    <div class="container">
+                        <h1 class="logo">Producto 2</h1>
+                        <ul class="nav-list">
+                            <li><button onclick="loadDoc('Navigation/Presentacion.html' ,CargarPagina)">Portada</button></li>
+                            <li><button onclick="loadDoc('Navigation/Tipo_de_aplicaciones.html' ,CargarPagina)">Tipos de aplicaciones</button></li>
+                            <li><button onclick="loadDoc('Navigation/Reporte_pruebas.html' ,CargarPagina)">Reporte de Pruebas</button></li
+                            <li><button onclick="loadDoc('Navigation/Parametros_configuraction.html' ,CargarPagina)">Parametros de Configuracion</button></li>
+                        </ul>
+                    </div>
+                </nav>
+            </nav>
+        </header>
+        <div id="ContenidoDinamico">
+            </br>
+            <h1 class="text-center">Inicio</h1>
+            </br>
+            <h4 class="text-center">Seleccione las opcciones disponibles en nuestro header para navegar y conocer sobre las aplicaciones web
+                progresivas, multiplataforma, moviles, etc...
+            </h4>
+
+        </div>
+    </br>
+    </br>
+    </br>
+</body>
+   
+<script src="https://kit.fontawesome.com/fd6126367b.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+<script>
+    function loadDoc(url, cFunction) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            cFunction(this)
+        }
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }    
+    function CargarPagina(xhttp) {
+        //ejecución de la acción
+        document.getElementById("ContenidoDinamico").innerHTML = xhttp.responseText;
+       
+
+    }
+
+</script>
+
+    <script>
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker.register(
+                'cache.js'
+            ).then(
+                function(registro){
+                    console.log('sw ok',registro.scope);
+                }
+            ).catch(
+                function(error){
+                    console.log('sw fallo',error);
+                }
+            );
+        }
+    </script>
+
+
+<script>
+    function Cargar_Seccion(url, cFunction) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            cFunction(this)
+        }
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }    
+    function Seccion(xhttp) {
+        //ejecución de la acción
+        document.getElementById("Bloque").innerHTML = xhttp.responseText;
+       
+
+    }
+</script>
+<script src="cache.js"></script>
+</html>
