@@ -1,12 +1,14 @@
-body{
-    background-color: black;
-    color : #ff6600;
-    font-family: 'Century Gothic';
+body {
+    background-color: rgb(71, 71, 71);
+    color: #00ad17;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-::selection{
+
+::selection {
     color: black;
-    background-color: white;
+    background-color: rgb(3, 177, 3);
 }
+
 /* Reset de estilos para quitar márgenes y relleno por defecto */
 body, ul {
     margin: 0;
@@ -15,13 +17,10 @@ body, ul {
 
 /* Estilos de la barra de navegación */
 .navbar {
-    background-color: #333;
-    color: #fff;
+    background-color: #242323;
+    color: rgb(255, 255, 255);
     padding: 25px 0;
-
 }
-
-
 
 .logo {
     font-size: 24px;
@@ -41,21 +40,19 @@ body, ul {
     margin-right: 0;
 }
 
-
-.nav-list button{
+.nav-list button {
     background: none;
     border: none;
-    color: white; /* Cambia el color del texto al color de enlace que desees */
+    color: white;
     text-decoration: none;
     cursor: pointer;
     padding: 0;
     font-size: inherit;
 }
-.nav-list button:hover{
-    color: #ff6600; /* Cambia el color al pasar el mouse */
+
+.nav-list button:hover {
+    color: #038f26;
 }
-
-
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
@@ -74,33 +71,32 @@ body, ul {
     }
 }
 
-
-
 /*----------------------Diseño de la tabla*/
 table {
     width: 100%;
     border-collapse: collapse;
     background-color: black;
-  
-   
 }
 
 th, td {
     padding: 10px;
     text-align: left;
-    height: 100px; /* Altura fija para todas las celdas */
+    height: 100px;
 }
-tr{
+
+tr {
     color: gray;
-    
 }
 
 th {
-    background-color:  #333;
- 
+    background-color: #000000;
 }
 
 tr:nth-child(odd) {
-    background-color:  #333;
- 
+    background-color: #000000;
+}
+
+/* Aplicar sombra a todos los textos */
+* {
+    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
