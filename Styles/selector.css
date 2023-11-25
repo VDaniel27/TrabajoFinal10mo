@@ -31,4 +31,8 @@
   .selector ul li button:hover {
     background-color: #555;
   }
+
+  .container {
+    text-align: left;
+}
   
