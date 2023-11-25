@@ -9,14 +9,12 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: space-around;
-  }
+}
   
   /* Estilos para cada elemento de la lista */
   .selector ul li {
-    display: inline;
-  }
+    display: block;
+}
   
   /* Estilos para los botones */
   .selector ul li button {
@@ -25,14 +23,16 @@
     border: none;
     cursor: pointer;
     padding: 8px 16px;
-  }
+    width: 100%;
+    text-align: left; /* Alinea el texto a la izquierda dentro de los botones */
+}
   
   /* Estilos al pasar el mouse por encima */
   .selector ul li button:hover {
     background-color: #555;
-  }
+}
 
-  .container {
-    text-align: left;
+.container {
+    display: flex;
 }
   
